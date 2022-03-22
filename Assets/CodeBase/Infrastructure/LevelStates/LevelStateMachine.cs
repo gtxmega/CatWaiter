@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CodeBase.Infrastructure.LevelStates.States;
 using CodeBase.Infrastructure.Services.CoroutineRunner;
 using Zenject;
 
@@ -14,7 +15,7 @@ namespace CodeBase.Infrastructure.LevelStates
         {
             _states = new Dictionary<Type, ILevelState>
             {
-
+                [typeof(LoadLevelState)] = new LoadLevelState(this, diContainer)
             };
         }
 

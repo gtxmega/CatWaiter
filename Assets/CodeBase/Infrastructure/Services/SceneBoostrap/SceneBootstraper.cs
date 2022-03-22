@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using CodeBase.Infrastructure.LevelStates;
+using CodeBase.Infrastructure.LevelStates.States;
+using CodeBase.Infrastructure.Services.CoroutineRunner;
 using UnityEngine;
+using Zenject;
 
-public class SceneBootstraper : MonoBehaviour
+public class SceneBootstraper : MonoBehaviour, ICoroutineRunner
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Inject] private DiContainer _diContainer;
+    
+    private LevelStateMachine _stateMachine;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        _stateMachine = new LevelStateMachine(_diContainer, this);
+        _stateMachine.Enter<LoadLevelState>();
     }
 }
