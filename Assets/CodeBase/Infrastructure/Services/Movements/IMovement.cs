@@ -10,5 +10,7 @@ namespace CodeBase.Infrastructure.Services.Movements
         void SetDestination(Vector3 point);
         void SetFollowing(Transform following);
         void StopFollowing();
+        void DisableAgent();
+        void EnableAgent();
     }
 }

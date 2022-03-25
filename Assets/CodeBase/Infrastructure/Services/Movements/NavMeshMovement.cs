@@ -34,6 +34,7 @@ namespace CodeBase.Infrastructure.Services.Movements
 
         public void SetDestination(Vector3 point)
         {
+            _followingTarget = null;
             _navMeshAgent.SetDestination(point);
         }
 
@@ -45,6 +46,17 @@ namespace CodeBase.Infrastructure.Services.Movements
         public void StopFollowing()
         {
             _followingTarget = null;
+        }
+
+        public void EnableAgent()
+        {
+            _navMeshAgent.enabled = true;
+        }
+
+        public void DisableAgent()
+        {
+            _followingTarget = null;
+            _navMeshAgent.enabled = false;
         }
     }
 }

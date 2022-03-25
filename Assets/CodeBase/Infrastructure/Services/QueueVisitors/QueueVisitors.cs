@@ -7,7 +7,7 @@ using Zenject;
 
 namespace CodeBase.Infrastructure.Services.QueueVisitors
 {
-    public class QueueVisitors : MonoBehaviour
+    public class QueueVisitors : MonoBehaviour, IQueueVisitors
     {
         [SerializeField] private int _maxQueueCount;
         [SerializeField] private float _generalTimeSpawn;
@@ -51,11 +51,13 @@ namespace CodeBase.Infrastructure.Services.QueueVisitors
 
         public Visitor DequeueVisitor()
         {
+            Debug.Log(_visitors.Count);
             Visitor visitor = _visitors[0];
             
             _visitors.RemoveAt(0);
             
-            ResizeQueue();
+            RebuildQueue();
+            Debug.Log(_visitors.Count);
             
             return visitor;
         }
@@ -95,13 +97,13 @@ namespace CodeBase.Infrastructure.Services.QueueVisitors
 
         }
 
-        private void ResizeQueue()
+        private void RebuildQueue()
         {
             for (int i = 0; i < _visitors.Count; ++i)
             {
                 if (i == 0)
                 {
-                    _visitors[i].SetDestination(_spawnPoint.position);
+                    _visitors[i].SetDestination(_enterPoint.position);
                     continue;
                 }
                 _visitors[i].SetFollowTransform(_visitors[i - 1].ThisTransform);

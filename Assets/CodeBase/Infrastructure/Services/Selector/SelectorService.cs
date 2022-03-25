@@ -1,10 +1,14 @@
-﻿using CodeBase.Logic.Actors.Actors;
+﻿using System;
+using CodeBase.Logic.Actors.Actors;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Selector
 {
-    public class SelectorService : MonoBehaviour
+    public class SelectorService : MonoBehaviour, ISelectorService
     {
+        public event Action<ISelectable, GameObject> OnSelect;
+        public event Action<ISelectable> OnUnselect;
+    
         [SerializeField] private CatAwaiter _catAwaiter;
         [SerializeField] private float _maxDistance = 100.0f;
         [SerializeField] private LayerMask _layersSelecting;
@@ -28,13 +32,23 @@ namespace CodeBase.Infrastructure.Services.Selector
                 {
                     if (hitResult.collider.TryGetComponent<ISelectable>(out var selectable))
                     {
-                        if(_currentSelect != null) _currentSelect.Unselect();
-
+                        if (_currentSelect != null)
+                        {
+                            _currentSelect.Unselect();
+                            OnUnselect?.Invoke(_currentSelect);
+                        }
+                        
                         _currentSelect = selectable;
                         _currentSelect.Selected(_catAwaiter);
+                        OnSelect?.Invoke(_currentSelect, hitResult.collider.gameObject);
                     }
                 }
             }
+        }
+
+        public ISelectable GetCurrentSelecting()
+        {
+            return _currentSelect;
         }
     }
 }

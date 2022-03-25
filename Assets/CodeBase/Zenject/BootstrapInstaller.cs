@@ -1,18 +1,26 @@
 ﻿using CodeBase.Infrastructure.AssetMenagment;
 using CodeBase.Infrastructure.Services.GameFactory;
 using CodeBase.Infrastructure.Services.Movements;
+using CodeBase.Infrastructure.Services.QueueVisitors;
+using CodeBase.Infrastructure.Services.Selector;
 using Zenject;
 
 namespace CodeBase.Zenject
 {
     public class BootstrapInstaller : MonoInstaller
     {
+        public SelectorService _selectorService;
+        public QueueVisitors _queueVisitors;
+
+
         public override void InstallBindings()
         {
             //General services
             AssetProvider();
             GameFactory();
-            
+            SelectorService();
+            QueueVisitors();
+
             //Actors services
             Movement();
         }
@@ -34,6 +42,25 @@ namespace CodeBase.Zenject
                 .AsSingle()
                 .NonLazy();
         }
+
+        private void SelectorService()
+        {
+            Container.Bind<ISelectorService>()
+                .To<SelectorService>()
+                .FromInstance(_selectorService)
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void QueueVisitors()
+        {
+            Container.Bind<IQueueVisitors>()
+                .To<QueueVisitors>()
+                .FromInstance(_queueVisitors)
+                .AsSingle()
+                .NonLazy();
+        }
+        
 
         private void Movement()
         {
