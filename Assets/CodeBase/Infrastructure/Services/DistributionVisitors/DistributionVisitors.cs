@@ -1,5 +1,4 @@
-﻿using CodeBase.Infrastructure.Services.Movements;
-using CodeBase.Infrastructure.Services.QueueVisitors;
+﻿using CodeBase.Infrastructure.Services.QueueVisitors;
 using CodeBase.Infrastructure.Services.Selector;
 using CodeBase.Logic.Actors.Actors;
 using CodeBase.Logic.Table;
@@ -10,12 +9,11 @@ namespace CodeBase.Infrastructure.Services.DistributionVisitors
 {
     public class DistributionVisitors : MonoBehaviour
     {
-
         private Visitor _currentVisitor;
-        
         private ISelectorService _selectorService;
         private IQueueVisitors _queueVisitors;
 
+        
         [Inject]
         private void Construct(ISelectorService selectorService, IQueueVisitors queueVisitors)
         {
@@ -41,14 +39,13 @@ namespace CodeBase.Infrastructure.Services.DistributionVisitors
                 }
             }else
             {
-                if (selectableObject.TryGetComponent<Table>(out Table table))
+                if (selectableObject.TryGetComponent<LittleTable>(out LittleTable table))
                 {
                     if (table.IsFree())
                     {
                         _queueVisitors.DequeueVisitor();
-                        table.GoToTable(_currentVisitor);
-                        _currentVisitor.GetComponent<IMovement>().SetDestination(table.ThisTransform.position);
-                        
+                        table.GoSitDownAtTable(_currentVisitor);
+
                         _currentVisitor = null;
                     }
                 }

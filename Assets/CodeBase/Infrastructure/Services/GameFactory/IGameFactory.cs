@@ -9,5 +9,7 @@ namespace CodeBase.Infrastructure.Services.GameFactory
         GameObject CreateGameObject(string path, Vector3 position);
 
         Visitor CreateVisitor(Vector3 at);
+
+        T CreateUIElement<T>(string path, Transform parent);
     }
 }

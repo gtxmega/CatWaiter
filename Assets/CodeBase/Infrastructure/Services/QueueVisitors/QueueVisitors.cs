@@ -51,14 +51,11 @@ namespace CodeBase.Infrastructure.Services.QueueVisitors
 
         public Visitor DequeueVisitor()
         {
-            Debug.Log(_visitors.Count);
             Visitor visitor = _visitors[0];
             
             _visitors.RemoveAt(0);
-            
             RebuildQueue();
-            Debug.Log(_visitors.Count);
-            
+
             return visitor;
         }
 

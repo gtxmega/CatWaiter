@@ -6,5 +6,6 @@ namespace CodeBase.Infrastructure.AssetMenagment
     {
         GameObject Instantiate(string filePath);
         GameObject Instantiate(string filePath, Vector3 at);
+        T InstantiateUI<T>(string path, Transform parent);
     }
 }

@@ -32,5 +32,10 @@ namespace CodeBase.Infrastructure.Services.GameFactory
             GameObject visitorObject = _assets.Instantiate(AssetsPath.VisitorPath, at);
             return visitorObject.GetComponent<Visitor>();  
         }
+
+        public T CreateUIElement<T>(string path, Transform parent)
+        {
+            return  _assets.InstantiateUI<T>(path, parent);
+        }
     }
 }

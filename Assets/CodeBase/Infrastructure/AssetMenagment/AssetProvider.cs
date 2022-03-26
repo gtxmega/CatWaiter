@@ -17,6 +17,12 @@ namespace CodeBase.Infrastructure.AssetMenagment
         {
             return SpawnFromDI(filePath, at);
         }
+        
+        public T InstantiateUI<T>(string path, Transform parent)
+        {
+            GameObject instanceObject = _diContainer.InstantiatePrefabResource(path, parent);
+            return instanceObject.GetComponent<T>();
+        }
 
         private GameObject SpawnFromDI(string path, Vector3 position)
         {

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 411805184129946806}
   - component: {fileID: 411805184129946810}
   - component: {fileID: 411805184129946809}
-  - component: {fileID: 411805184129946808}
   - component: {fileID: 411805184129946807}
+  - component: {fileID: 433387834}
   m_Layer: 0
   m_Name: chair_right
   m_TagString: Untagged
@@ -83,20 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &411805184129946808
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411805184129946805}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &411805184129946807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +95,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28831a7265134f4ca665b312a4e9ff3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _widgetOffset: {x: 25, y: 100}
+--- !u!208 &433387834
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411805184129946805}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &411805184217631139
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 411805184217631139}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0.916, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 411805184957653763}
@@ -151,8 +154,8 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9656741, b: 0, a: 1}
-  m_Intensity: 2
+  m_Color: {r: 1, g: 0.76034176, b: 0, a: 1}
+  m_Intensity: 2.4
   m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -194,7 +197,7 @@ Light:
   m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -251,8 +254,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee66e84569447819f822fc107599184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chairLeft: {fileID: 411805185676457735}
-  _chairRight: {fileID: 411805184129946807}
+  _approachDistance: 1.7
+  _chairs:
+  - {fileID: 411805185676457735}
+  - {fileID: 411805184129946807}
 --- !u!208 &411805184957653766
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -263,7 +268,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.65, y: 1, z: 0.65}
+  m_Extents: {x: 0.64, y: 1, z: 0.64}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
@@ -294,8 +299,8 @@ GameObject:
   - component: {fileID: 411805185676457731}
   - component: {fileID: 411805185676457734}
   - component: {fileID: 411805185676457733}
-  - component: {fileID: 411805185676457732}
   - component: {fileID: 411805185676457735}
+  - component: {fileID: 219722}
   m_Layer: 0
   m_Name: chair_left
   m_TagString: Untagged
@@ -366,20 +371,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &411805185676457732
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411805185676457730}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &411805185676457735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +383,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28831a7265134f4ca665b312a4e9ff3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _widgetOffset: {x: 25, y: 100}
+--- !u!208 &219722
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411805185676457730}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &411805185582684059
 PrefabInstance:
   m_ObjectHideFlags: 0
