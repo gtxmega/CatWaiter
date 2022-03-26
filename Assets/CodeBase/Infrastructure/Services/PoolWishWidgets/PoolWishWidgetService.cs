@@ -52,7 +52,7 @@ namespace CodeBase.Infrastructure.Services.PoolWishWidgets
 
         private void AddWidgetToPool()
         {
-            WishItemWidget wishWidget = _gameFactory.CreateUIElement<WishItemWidget>(
+            WishItemWidget wishWidget = _gameFactory.CreateEntity<WishItemWidget>(
                 AssetsPath.WishItemWidgetPath, _widgetsParentTransform);
 
             ReturnWishItemWidget(wishWidget);

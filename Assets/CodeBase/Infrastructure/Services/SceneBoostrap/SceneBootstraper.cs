@@ -13,6 +13,6 @@ public class SceneBootstraper : MonoBehaviour, ICoroutineRunner
     private void Awake()
     {
         _stateMachine = new LevelStateMachine(_diContainer, this);
-        _stateMachine.Enter<LoadLevelState>();
+        _stateMachine.Enter<LoadLevelProgressState>();
     }
 }

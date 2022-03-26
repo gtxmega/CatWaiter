@@ -2,10 +2,13 @@
 using CodeBase.Infrastructure.Services.GameFactory;
 using CodeBase.Infrastructure.Services.GeneratingOrders;
 using CodeBase.Infrastructure.Services.Movements;
+using CodeBase.Infrastructure.Services.PersistenceProgress;
 using CodeBase.Infrastructure.Services.PoolWishWidgets;
 using CodeBase.Infrastructure.Services.QueueVisitors;
 using CodeBase.Infrastructure.Services.RandomService;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.Selector;
+using CodeBase.Infrastructure.Services.Stand;
 using CodeBase.Infrastructure.Services.UIFollow;
 using CodeBase.Infrastructure.Services.WishList;
 using Zenject;
@@ -20,6 +23,12 @@ namespace CodeBase.Zenject
         public GeneratingOrder _generatingOrder;
         public UIFollowService _uiFollowService;
         public PoolWishWidgetService _poolWishWidgetService;
+        
+        
+        private BarCounterService barCounterService;
+        private FoodPreparation foodPreparation;
+        private PersistenceProgress _persistenceProgress;
+        private SaveLoadService _saveLoadService;
 
 
         public override void InstallBindings()
@@ -36,6 +45,9 @@ namespace CodeBase.Zenject
             RandomService();
             GenerationOrder();
             PoolWishWidgets();
+
+            SaveLoadServiceRegistration();
+            BarCounterRegistration();
 
             //Actors services
             Movement();
@@ -95,6 +107,44 @@ namespace CodeBase.Zenject
                 .NonLazy();
         }
         
+        private void BarCounterRegistration()
+        {
+            foodPreparation = new FoodPreparation(Container.Resolve<IGameFactory>());
+            barCounterService = new BarCounterService(foodPreparation);
+
+            Container
+                .Bind<IFoodPreparation>()
+                .To<FoodPreparation>()
+                .FromInstance(foodPreparation)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<IBarCounterService>()
+                .To<BarCounterService>()
+                .FromInstance(barCounterService)
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void SaveLoadServiceRegistration()
+        {
+            _persistenceProgress = new PersistenceProgress();
+            _saveLoadService = new SaveLoadService(_persistenceProgress, Container.Resolve<IGameFactory>());
+
+            Container
+                .Bind<IPersistenceProgressServices>()
+                .To<PersistenceProgress>()
+                .FromInstance(_persistenceProgress)
+                .AsSingle();
+
+            Container
+                .Bind<ISaveLoadService>()
+                .To<SaveLoadService>()
+                .FromInstance(_saveLoadService)
+                .AsSingle();
+        }
+
         private void RandomService()
         {
             Container.Bind<IRandomizer>()

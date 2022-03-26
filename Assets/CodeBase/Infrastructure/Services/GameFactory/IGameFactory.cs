@@ -1,4 +1,6 @@
-﻿using CodeBase.Logic.Actors.Actors;
+﻿using System.Collections.Generic;
+using CodeBase.Infrastructure.Services.PersistenceProgress;
+using CodeBase.Logic.Actors.Actors;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.GameFactory
@@ -10,6 +12,9 @@ namespace CodeBase.Infrastructure.Services.GameFactory
 
         Visitor CreateVisitor(Vector3 at);
 
-        T CreateUIElement<T>(string path, Transform parent);
+        T CreateEntity<T>(string path, Transform parent);
+        T CreateEntity<T>(string path, Vector3 position);
+        List<ISavedProgress> ProgressWriters { get; }
+        List<IProgressReader> ProgressReaders { get; }
     }
 }

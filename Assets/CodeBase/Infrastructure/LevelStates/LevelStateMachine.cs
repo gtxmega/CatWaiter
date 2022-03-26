@@ -15,7 +15,10 @@ namespace CodeBase.Infrastructure.LevelStates
         {
             _states = new Dictionary<Type, ILevelState>
             {
-                [typeof(LoadLevelState)] = new LoadLevelState(this, diContainer)
+                [typeof(RegistrationServiceState)] = new RegistrationServiceState(this, diContainer, coroutineRunner),
+                [typeof(SpawnEntityForLevelState)] = new SpawnEntityForLevelState(this, diContainer),
+                [typeof(LoadLevelProgressState)] = new LoadLevelProgressState(this, diContainer),
+                [typeof(SceneLoopState)] = new SceneLoopState(this)
             };
         }
 

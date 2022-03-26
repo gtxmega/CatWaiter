@@ -15,7 +15,7 @@ namespace CodeBase.Infrastructure.Game
         private void Awake()
         {
             _stateMachine = new LevelStateMachine(_diContainer, this);
-            _stateMachine.Enter<LoadLevelState>();
+            _stateMachine.Enter<RegistrationServiceState>();
         }
     }
 }
